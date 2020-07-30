@@ -1,0 +1,44 @@
+{
+    "redis": {
+        "host": "127.0.0.1",
+        "port": "6379",
+        "password": "dg_scgl"
+    },
+    "res": {
+        "success": {
+            "code": 200,
+            "message": "success",
+            "data": {}
+        },
+        "error": {
+            "bad_request": {
+                "code": 400,
+                "message": "无法理解请求"
+            },
+            "unauthorized": {
+                "code": 401,
+                "message": "无权限"
+            },
+            "not_found": {
+                "code": 404,
+                "message": "资源不存在"
+            },
+            "method_not_allow": {
+                "code": 405,
+                "message": "不支持方法"
+            },
+            "conflict": {
+                "code": 409,
+                "message": "存在冲突"
+            },
+            "unprocessable_entity": {
+                "code": 422,
+                "message": "存在错误"
+            },
+            "server_error": {
+                "code": 500,
+                "message": "服务器错误"
+            }
+        }
+    }
+}

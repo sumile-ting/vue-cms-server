@@ -1,0 +1,46 @@
+var express = require('express');
+var router = express.Router();
+
+var redisClient = require("../database/index.js").init();
+var redis = require("redis");
+var bodyParser = require('body-parser');
+
+/* GET listing. */
+/**
+ * 获取文章列表
+ */
+router.get('/list', function(req, res, next) {
+  // redisClient.set("string key", "string val", redis.print);
+    let keys = redisClient.get("ARTICLE_LIST:*");
+    console.log();
+    res.send(keys);
+});
+
+/**
+ * 获取某个文章详情
+ */
+router.get('/list/:id', function (req, res) {
+  console.log(req.params)
+  redisClient.get("ARTICLE_LIST:" + req.params.id, function(err, replies) {
+    res.send(replies);
+  });
+
+})
+
+/**
+ * 向数据库添加一个文章
+ */
+router.use(bodyParser.urlencoded({
+  extended: true
+}));
+/* POST articles listing. */
+router.post('/publish', function(req, res, next) {
+    let params = req.body;
+    redisClient.set("ARTICLE_LIST:" + params.id, JSON.stringify(params), redis.print);
+    res.end(JSON.stringify(params.id));
+});
+
+
+
+
+module.exports = router;
